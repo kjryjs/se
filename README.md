@@ -13,8 +13,8 @@
 ## 📂 프로젝트 구조
 ```
 .
-├── README.md
-└── doc
+├── doc
     └── project1.md
     └── project2.md
 └──src
+└──README.md
