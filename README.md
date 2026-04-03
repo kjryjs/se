@@ -9,5 +9,6 @@
 ├── doc
     └── project1.md
     └── project2.md
-└──src
+└──src  
+    └── test
 └──README.md
