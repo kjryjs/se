@@ -6,6 +6,7 @@
 |품질요소측정       | [doc/project2.md](doc/project2.md) | 
 |프로젝트관리계획서 | [doc/project3.md](doc/project3.md)  |
 |요구사항정의서     | [doc/project4.md](doc/project4.md)  |
+|요구사항분석서     | [doc/project5.md](doc/project5.md)  |
 
 
 ## 프로젝트 구조
@@ -16,6 +17,7 @@
     └── project2.md
     └── project3.md
     └── project4.md
+    └── project5.md
 └──src  
     └── test
 └──README.md
