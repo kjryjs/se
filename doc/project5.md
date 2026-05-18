@@ -332,6 +332,76 @@ Use Case Type : Detail, essential
 2.a1 : 존재하지 않는 사용자일 경우 오류 메시지를 출력한다.  
 
 ---
+## Use Case Name : 사용자 권한 관리
+ID : U_06
+Importance Level : high
+Primary Actor : 관리자
+Use Case Type : Detail, essential
+
+### Brief Description
+이 Use-Case는 관리자가 시스템 내 특정 사용자의 등급이나 접근 권한을 변경 및 관리하는 기능을 표현한다.
+
+### Stakeholders and Interests
+관리자 : 관리자는 시스템의 보안을 유지하고 사용자를 올바르게 통제하기를 원한다.
+
+### Trigger
+관리자는 사용자 관리 메뉴에서 권한 변경 버튼을 누른다.
+
+### Relationships
+- Association : 관리자
+- Include : 
+- Extend : 
+- Generalization : 
+
+### Normal Flow of Events
+1. 관리자는 사용자 목록에서 특정 사용자를 선택한다.
+2. 관리자는 해당 사용자에게 부여할 권한 등급을 선택한다.
+3. 시스템은 권한 변경 정보를 저장한다.
+4. 시스템은 권한 수정 완료 메시지를 출력한다.
+
+### Subflows
+없음
+
+### Alternate / Exceptional Flows
+1.a1 : 존재하지 않는 사용자인 경우 오류 메시지를 출력한다.
+2.a1 : 최고 관리자 권한을 해제하려는 경우 변경을 제한하고 경고 메시지를 출력한다.
+
+---
+
+## Use Case Name : 파일 권한 설정
+ID : U_07
+Importance Level : high
+Primary Actor : 관리자
+Use Case Type : Detail, essential
+
+### Brief Description
+이 Use-Case는 관리자가 시스템 내 전체 파일 또는 특정 파일에 대한 접근 규격 및 보안 권한을 설정하는 기능을 표현한다.
+
+### Stakeholders and Interests
+관리자 : 관리자는 비정상적인 파일 접근을 차단하고 안정적으로 파일을 보호하기를 원한다.
+
+### Trigger
+관리자는 파일 관리 메뉴에서 권한 설정 버튼을 누른다.
+
+### Relationships
+- Association : 관리자
+- Include : 
+- Extend : 
+- Generalization : 
+
+### Normal Flow of Events
+1. 관리자는 권한을 조정할 파일 또는 폴더를 선택한다.
+2. 관리자는 접근 제한 조건(읽기/쓰기 차단 등)을 설정한다.
+3. 시스템은 파일 권한 보안 규칙을 업데이트한다.
+4. 시스템은 설정 완료 메시지를 출력한다.
+
+### Subflows
+없음
+
+### Alternate / Exceptional Flows
+1.a1 : 시스템 필수 시스템 파일인 경우 권한 수정을 제한하는 안내 메시지를 출력한다.
+
+---
 
 # 3. 요구사항 명세
 
@@ -391,43 +461,149 @@ U_01, U_02, U_03, U_04, U_05
 - Other Associations: Share  
 
 ---
+## Class Name : File
+ID : 02 Type : Concrete, Domain
 
-### Class Name : File  
-ID : 02  
-Type : Concrete, Domain
+## Description
+사용자가 시스템에 업로드하여 저장, 다운로드, 공유하는 개별 파일 정보를 나타낸다.
 
-### Description
-사용자의 파일 정보를 나타낸다.
-
-### Associated Use Case
+## Associated Use Case
 U_03, U_04, U_05
 
-### Responsibilities
+## Responsibilities
+- 파일 생성() : void
+- 파일 삭제() : void
+- 파일 수정() : void
+- 파일 조회() : File
 
-- 파일 저장() : void  
-- 파일 다운로드() : void  
-- 파일 삭제() : void  
-- 버전 관리() : void  
+## Collaborators
+- User
+- Folder
+- Version
 
-### Collaborators
+## Attributes
+- 파일명 : String
+- 파일크기 : Long
+- 파일경로 : String
+- 확장자 : String
 
-- User  
-- Version  
-- Folder  
-
-### Attributes
-
-- 파일명 : String  
-- 파일크기 : Integer  
-- 업로드날짜 : Date  
-
-### Relationships
-
-- Generalization (a-kind-of):  
-- Aggregation (has-parts): Version  
-- Other Associations: User  
+## Relationships
+- Generalization (a-kind-of):
+- Aggregation (has-parts): Version
+- Other Associations: User, Folder
 
 ---
+
+## Class Name : Folder
+ID : 03 Type : Concrete, Domain
+
+## Description
+시스템 내에서 파일들을 그룹화하여 편리하게 관리할 수 있는 폴더 정보를 나타낸다.
+
+## Associated Use Case
+U_03, U_04, U_05
+
+## Responsibilities
+- 폴더 생성() : void
+- 폴더 삭제() : void
+- 폴더 이동() : void
+- 파일 추가() : void
+
+## Collaborators
+- User
+- File
+
+## Attributes
+- 폴더명 : String
+- 생성날짜 : Date
+- 소유자ID : String
+
+## Relationships
+- Generalization (a-kind-of):
+- Aggregation (has-parts): File
+- Other Associations: User
+
+## Class Name : Share
+ID : 04 Type : Concrete, Domain
+
+## Description
+사용자 간에 파일이나 폴더를 안전하게 공유하기 위한 권한 및 링크 정보를 관리한다.
+
+## Associated Use Case
+U_05
+
+## Responsibilities
+- 공유 링크 생성() : String
+- 공유 권한 설정() : void
+- 공유 대상 추가() : void
+- 공유 취소() : void
+
+## Collaborators
+- User
+- File
+
+## Attributes
+- 공유ID : String
+- 접근권한타입 : String
+- 만료일시 : Date
+
+## Relationships
+- Generalization (a-kind-of):
+- Aggregation (has-parts):
+- Other Associations: User, File
+
+## Class Name : Version
+ID : 05 Type : Concrete, Domain
+
+## Description
+파일이 수정되거나 업데이트될 때 발생하는 과거 이력 및 파일의 버전 정보를 관리한다.
+
+## Associated Use Case
+U_03, U_04
+
+## Responsibilities
+- 버전 생성() : void
+- 이전 버전 복구() : void
+- 버전 이력 조회() : List
+
+## Collaborators
+- File
+
+## Attributes
+- 버전번호 : Integer
+- 수정날짜 : Date
+- 파일경로 : String
+
+## Relationships
+- Generalization (a-kind-of):
+- Aggregation (has-parts):
+- Other Associations: File
+
+## Class Name : AuthManager
+ID : 06 Type : Control, Technical
+
+## Description
+사용자의 로그인 인증 및 회원가입 시 입력된 데이터 검증 처리를 담당한다.
+
+## Associated Use Case
+U_01, U_02
+
+## Responsibilities
+- 인증 요청 검증() : Boolean
+- 토큰 생성() : String
+- 비밀번호 암호화() : String
+
+## Collaborators
+- User
+
+## Attributes
+- 인증방식 : String
+- 세션만료시간 : Integer
+
+## Relationships
+- Generalization (a-kind-of):
+- Aggregation (has-parts):
+- Other Associations: User
 
 ## 3.3 동적 분석
 
@@ -498,22 +674,31 @@ U_03, U_04, U_05
 
 ---
 
-# 6. 요구사항 추적표
+### 6. 요구사항 추적표
 
-| 요구사항 | U_01 | U_02 | U_03 | U_04 | U_05 |
-|:--|:--|:--|:--|:--|:--|
-| FR_001 | O |  |  |  |  |
-| FR_002 |  | O |  |  |  |
-| FR_003 |  | O |  |  |  |
-| FR_004 |  |  | O |  |  |
-| FR_005 |  |  |  | O |  |
-| FR_006 |  |  | O |  |  |
-| FR_007 |  |  | O |  |  |
-| FR_008 |  |  | O |  |  |
-| FR_009 |  |  |  |  | O |
-| FR_010 |  |  |  | O | O |
-| FR_011 |  |  |  | O | O |
-| FR_012 |  |  | O | O | O |
+| 요구사항 | U_01 | U_02 | U_03 | U_04 | U_05 | U_06 | U_07 |
+| ----- | --- | --- | --- | --- | --- | --- | --- |
+| FR_001 | O | | | | | | |
+| FR_002 | | O | | | | | |
+| FR_003 | | O | | | | | |
+| FR_004 | | | O | | | | |
+| FR_005 | | | | O | | | |
+| FR_006 | | | O | | | | |
+| FR_007 | | | O | | | | |
+| FR_008 | | | O | | | | |
+| FR_009 | | | | | O | | |
+| FR_010 | | | | O | O | | |
+| FR_011 | | | | O | O | | |
+| FR_012 | | | O | O | O | | |
+| FR_013 | | | | | | | |
+| FR_014 | | | | | | | |
+| FR_015 | O | | | | | | |
+| FR_016 | | O | | | | | |
+| FR_017 | | | O | | | | |
+| FR_018 | | | | O | | | |
+| FR_019 | | | | | | | O |
+| FR_020 | | | | O | O | | |
+| FR_021 | | | | | O | | |
 
 ---
 
