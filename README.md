@@ -7,7 +7,7 @@
 |프로젝트관리계획서 | [doc/project3.md](doc/project3.md)  |
 |요구사항정의서     | [doc/project4.md](doc/project4.md)  |
 |요구사항분석서     | [doc/project5.md](doc/project5.md)  |
-
+|테스트보고서       |[doc/project6.md](doc/project6.md)|
 
 ## 프로젝트 구조
 ```
@@ -18,6 +18,7 @@
     └── project3.md
     └── project4.md
     └── project5.md
+    └── project6.md
 └──src  
     └── test
 └──README.md
